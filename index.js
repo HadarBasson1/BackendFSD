@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3001
+const port = 5000
 const seed = require("./models/seed");
 const mongoose = require("mongoose");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get("/api", (req, res) => {
+  res.json({"users":["hadar","noam"]})
 })
 
 app.listen(port, () => {
