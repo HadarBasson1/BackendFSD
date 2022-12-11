@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
+
 // Dish Modal Schema
 const dishSchema = new mongoose.Schema({
+  ID:{
+    type: String,
+  },
   Name: {
     type: String,
   },
