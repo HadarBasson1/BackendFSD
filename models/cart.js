@@ -6,6 +6,9 @@ const CartSchema = new mongoose.Schema({
     Products: [
       {
         Product_id: String,
+        Name: String,
+        Price:Number,
+        URL: String,
         Quantities: Number,
       },
     ],

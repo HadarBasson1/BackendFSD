@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const {Dishes} = require("./models/dish");
 const {Cart} = require("./models/cart");
 const cors = require("cors");
+app.use(express.json());
 app.use(cors());
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
@@ -53,8 +54,45 @@ app.get("/cart", async (req, res) => {
 });
 
 app.post("/addToCart", async (req, res) => {
+  var cart=await Cart.findOne({})
+  var arr = cart.Products;
+  var id_item = req.body.id;
+  var name_item = req.body.name;
+  var price_item = req.body.price;
+  var imgUrl_item = req.body.imgUrl;
+  
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].Product_id == id_item) {
+      arr[i].Quantities++;
+      await Cart.findOneAndUpdate({ Products: arr })
+      return;
+    }
+  }
+  arr.push({ Product_id: id_item,Name:name_item,
+    Price:price_item ,URL:imgUrl_item, Quantities: 1 });
+  await Cart.findOneAndUpdate({ Products: arr })
   res.json({ status: 200 });
 });
+
+app.get("/allcart", async (req, res) => {
+
+  // const dishes = await
+  var cart=await Cart.findOne({})
+  var arr = cart.Products;
+  res.send(arr.map((item)=>{
+    return{
+       name:item.Name,
+      price:item.Price,
+      imgUrl:item.URL,
+      q:item.Quantities,
+    }  
+  }))
+} 
+)
+
+
+
 
 
 
