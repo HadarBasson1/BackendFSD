@@ -28,8 +28,11 @@ app.get("/api", (req, res) => {
   res.json({"users":["hadar","noam"]})
 })
 app.get("/alldishes", async (req, res) => {
-  const dishes = await Dishes.find({});
-  res.json(dishes);
+  // const dishes = await
+   Dishes.find({}).then(
+    items => res.json(items)
+  ).catch(err=>consol.log(err));
+  //res.json({"alldishes":dishes});
 });
 
 
