@@ -4,9 +4,9 @@ const port = 5000
 const seed = require("./models/seed");
 const mongoose = require("mongoose");
 const {Dishes} = require("./models/dish");
+const {Cart} = require("./models/cart");
 const cors = require("cors");
 app.use(cors());
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
@@ -27,9 +27,18 @@ mongoose
 app.get("/api", (req, res) => {
   res.json({"users":["hadar","noam"]})
 })
+
 app.get("/alldishes", async (req, res) => {
   // const dishes = await
    Dishes.find({}).then(
+    items => res.json(items)
+  ).catch(err=>consol.log(err));
+  //res.json({"alldishes":dishes});
+});
+
+app.get("/alldishes/:id", async (req, res) => {
+  // const dishes = await
+   Dishes.findById(req.params.id).then(
     items => res.json(items)
   ).catch(err=>consol.log(err));
   //res.json({"alldishes":dishes});

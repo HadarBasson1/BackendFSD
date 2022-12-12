@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {Dishes} = require("./dish");
+const {Cart} = require("./cart");
 
 // ID
 // Name:
@@ -63,10 +64,21 @@ const seedDishes = [
   },
 ];
 
+const seedCart = [
+  {
+    Products: [],
+    FirstName: "",
+    LastName: "",
+    PhonNunber:"",
+  },
+];
+
 
 const seedDB = async () => {
   await Dishes.deleteMany({});
   await Dishes.insertMany(seedDishes);
+  await Cart.deleteMany({});
+  await Cart.insertMany(seedCart);
    console.log("Seed file uploaded successfully");
 };
 
