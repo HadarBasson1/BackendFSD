@@ -44,6 +44,19 @@ app.get("/alldishes/:id", async (req, res) => {
   //res.json({"alldishes":dishes});
 });
 
+app.get("/cart", async (req, res) => {
+  // const dishes = await
+   Cart.find({}).then(
+    items => res.json(items)
+  ).catch(err=>consol.log(err));
+  //res.json({"alldishes":dishes});
+});
+
+app.post("/addToCart", async (req, res) => {
+  res.json({ status: 200 });
+});
+
+
 
 
 
