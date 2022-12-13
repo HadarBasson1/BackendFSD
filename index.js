@@ -53,6 +53,17 @@ app.get("/cart", async (req, res) => {
   //res.json({"alldishes":dishes});
 });
 
+//updateUserData
+app.post("/updateUserData", async (req, res) => {
+  var cart=await Cart.findOne({})
+  var firstN = req.body.firstN;
+  var lastN = req.body.lastN;
+  var phone = req.body.phone;
+  await Cart.findOneAndUpdate({FirstName: firstN,LastName:lastN,PhonNunber:phone})
+  res.json({ status: 200 });
+});
+
+
 app.post("/addToCart", async (req, res) => {
   var cart=await Cart.findOne({})
   var arr = cart.Products;
