@@ -5,6 +5,7 @@ const seed = require("./models/seed");
 const mongoose = require("mongoose");
 const {Dishes} = require("./models/dish");
 const {Cart} = require("./models/cart");
+const {Orders} = require("./models/order");
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
@@ -53,13 +54,28 @@ app.get("/cart", async (req, res) => {
   //res.json({"alldishes":dishes});
 });
 
+app.get("/orders", async (req, res) => {
+   Orders.find({}).then(
+    items => res.json(items)
+  ).catch(err=>consol.log(err));
+});
+
 //updateUserData
 app.post("/updateUserData", async (req, res) => {
-  var cart=await Cart.findOne({})
-  var firstN = req.body.firstN;
-  var lastN = req.body.lastN;
-  var phone = req.body.phone;
-  await Cart.findOneAndUpdate({FirstName: firstN,LastName:lastN,PhonNunber:phone})
+  // var cart=await Cart.findOne({})
+  
+   var orders= await Orders.findOne({})
+   var arr=orders.Orders
+   const new_order = {
+   FirstName: req.body.firstN,
+   LastName:req.body.lastN,
+   PhonNunber:req.body.phone,
+   TotalPrice:req.body.totalprice,
+  }
+  
+  arr.push(new_order)
+  await Orders.findOneAndUpdate({Orders:arr})
+  await Cart.findOneAndUpdate({ Products: [] })
   res.json({ status: 200 });
 });
 
