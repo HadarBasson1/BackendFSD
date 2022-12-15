@@ -69,7 +69,7 @@ app.post("/updateUserData", async (req, res) => {
    const new_order = {
    FirstName: req.body.firstN,
    LastName:req.body.lastN,
-   PhonNunber:req.body.phone,
+   Address:req.body.address,
    TotalPrice:req.body.totalprice,
   }
   
